@@ -1,4 +1,4 @@
-# GitHub Actions
+# GitHub Callable Workflows
 
 This repository contains callable workflows for use by other repositories.
 
@@ -49,7 +49,7 @@ on: [pull_request]
 
 jobs:
   test:
-    uses: network-rail-business-systems/actions/unit-tests.yml@main
+    uses: network-rail-business-systems/workflows/unit-tests.yml@main
     with:
       php: '8.0'
 ```
