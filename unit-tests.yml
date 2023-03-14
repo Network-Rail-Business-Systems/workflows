@@ -1,0 +1,78 @@
+name: 'Run tests whenever a pull request is opened'
+
+on:
+  workflow_call:
+    inputs:
+      artisan:
+        default: true
+        type: boolean
+      composer:
+        default: true
+        type: boolean
+      env:
+        default: true
+        type: boolean
+      npm:
+        default: true
+        type: boolean
+      php:
+        required: true
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php }}
+
+      - name: Load Composer cache...
+        if: inputs.composer == true
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: composer
+
+      - name: Load NPM cache...
+        if: inputs.npm == true
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: npm
+
+      - name: Install Composer...
+        if: inputs.composer == true
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Install NPM...
+        if: inputs.npm == true
+        run: npm install
+
+      - name: Create .env...
+        if: inputs.env == true
+        run: cp .env.example .env
+
+      - name: Generate key...
+        if: inputs.env == true
+        run: php artisan key:generate
+
+      - name: Run Laravel Mix...
+        if: inputs.npm == true
+        run: npm run prod
+
+      - name: Run Artisan tests in parallel...
+        if: inputs.artisan == true
+        run: php artisan test --parallel
+
+      - name: Run PHPUnit tests...
+        if: inputs.artisan == false
+        run: php ./vendor/bin/phpunit
