@@ -49,7 +49,7 @@ on: [pull_request]
 
 jobs:
   test:
-    uses: network-rail-business-systems/workflows/unit-tests.yml@main
+    uses: network-rail-business-systems/workflows/.github/workflows/unit-tests.yml@main
     with:
       php: '8.0'
 ```
