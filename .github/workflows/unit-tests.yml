@@ -56,5 +56,22 @@ jobs:
         run: npm run prod
 
       - name: Run unit tests...
-        run: ./.github/scripts/run-suites.sh ${{ inputs.artisan }}
-        shell: bash
+        run: |
+          suites=( $(php ./vendor/bin/phpunit --list-suites | grep -) )
+
+          for suite in ${suites[@]}
+          do
+            if [ $suite = "-" ]
+            then
+              continue
+            fi
+          
+            echo "Running PHPUnit for the $suite test suite..."
+          
+            if [ ${{ inputs.artisan }} = true ]
+            then
+              php artisan test --parallel --testsuite $suite
+            else
+              php ./vendor/bin/phpunit --testsuite $suite
+            fi
+          done
