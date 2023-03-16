@@ -55,10 +55,6 @@ jobs:
         if: inputs.npm == true
         run: npm run prod
 
-      - name: Run Artisan tests in parallel...
-        if: inputs.artisan == true
-        run: php artisan test --parallel
-
-      - name: Run PHPUnit tests...
-        if: inputs.artisan == false
-        run: php ./vendor/bin/phpunit
+      - name: Run unit tests...
+        run: ./.github/scripts/run-suites.sh
+        shell: bash
