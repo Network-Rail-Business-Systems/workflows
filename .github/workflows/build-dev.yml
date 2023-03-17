@@ -7,11 +7,14 @@ on:
         default: true
         type: boolean
       npm:
-          default: true
-          type: boolean
+        default: true
+        type: boolean
       php:
         required: true
         type: string
+      timeout:
+        default: 5
+        type: number
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -20,7 +23,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: ${{ inputs.timeout }}
     steps:
       - uses: actions/checkout@v3
 

@@ -18,6 +18,9 @@ on:
       php:
         required: true
         type: string
+      timeout:
+        default: 5
+        type: number
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,7 +29,7 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: ${{ inputs.timeout }}
     steps:
       - uses: actions/checkout@v3
 
