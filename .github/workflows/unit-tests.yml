@@ -55,10 +55,23 @@ jobs:
         if: inputs.npm == true
         run: npm run prod
 
-      - name: Run Artisan tests in parallel...
-        if: inputs.artisan == true
-        run: php artisan test --parallel
+      - name: Run unit tests...
+        run: |
+          suites=( $(php ./vendor/bin/phpunit --list-suites | grep -) )
 
-      - name: Run PHPUnit tests...
-        if: inputs.artisan == false
-        run: php ./vendor/bin/phpunit
+          for suite in ${suites[@]}
+          do
+            if [ $suite = "-" ]
+            then
+              continue
+            fi
+          
+            echo "Running PHPUnit for the $suite test suite..."
+          
+            if [ ${{ inputs.artisan }} = true ]
+            then
+              php artisan test --parallel --testsuite $suite
+            else
+              php ./vendor/bin/phpunit --testsuite $suite
+            fi
+          done
