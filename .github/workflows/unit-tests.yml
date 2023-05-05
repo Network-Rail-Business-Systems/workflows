@@ -62,7 +62,7 @@ jobs:
         run: npm run build
 
       - name: Run Laravel Mix...
-        if: inputs.npm == true && inputs.view == false
+        if: inputs.npm == true && inputs.vite == false
         run: npm run prod
 
       - name: Run unit tests...
