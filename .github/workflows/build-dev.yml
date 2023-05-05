@@ -40,9 +40,13 @@ jobs:
         if: inputs.npm == true
         run: npm install
 
+      - name: Run Vite...
+        if: inputs.npm == true && inputs.vite == true
+        run: npm run build
+
       - name: Run Laravel Mix...
-        if: inputs.npm == true
-        run: npm run dev
+        if: inputs.npm == true && inputs.view == false
+        run: npm run prod
 
       - name: Package build...
         run: zip -rq9 ${{ github.ref_name }}.zip . -x '.git/*' -x 'node_modules/*'
