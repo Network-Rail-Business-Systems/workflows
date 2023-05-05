@@ -15,6 +15,9 @@ on:
       timeout:
         default: 5
         type: number
+      vite:
+        default: false
+        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -40,8 +43,12 @@ jobs:
         if: inputs.npm == true
         run: npm install
 
+      - name: Run Vite...
+        if: inputs.npm == true && inputs.vite == true
+        run: npm run build
+
       - name: Run Laravel Mix...
-        if: inputs.npm == true
+        if: inputs.npm == true && inputs.vite == false
         run: npm run prod
 
       - name: Package build...
