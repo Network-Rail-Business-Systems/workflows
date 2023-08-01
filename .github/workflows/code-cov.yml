@@ -36,8 +36,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: ${{ inputs.timeout }}
-    permissions: write-all
-
     steps:
       - uses: actions/checkout@v2
 
