@@ -73,7 +73,7 @@ jobs:
         run: npm run coverage
 
       - name: Get branch name...
-        run: echo ::set-output name=branch::${{ github.ref_name }}
+        run: echo ::set-output name=branch::${{ github.ref.name }}
         id: extract_branch
 
       - name: Create code coverage badge
