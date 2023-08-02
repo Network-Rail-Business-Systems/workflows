@@ -81,8 +81,8 @@ jobs:
       - name: Push code coverage badge
         uses: peaceiris/actions-gh-pages@v3
         with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./output
-          publish_branch: ${{ secrets.GITHUB_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
