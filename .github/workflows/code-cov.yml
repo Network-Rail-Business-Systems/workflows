@@ -75,7 +75,7 @@ jobs:
       - name: Create code coverage badge
         uses: timkrase/phpunit-coverage-badge@v1.2.1
         with:
-          coverage_badge_path: output/git-add-coverage.svg
+          coverage_badge_path: output/code-coverage.svg
           push_badge: false
 
       - name: Push code coverage badge
