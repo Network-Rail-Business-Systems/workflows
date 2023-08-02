@@ -72,10 +72,6 @@ jobs:
         if: inputs.xdebug == false
         run: npm run coverage
 
-      - name: Get branch name...
-        run: echo ::set-output name=branch::${{ GITHUB_REF_NAME }}
-        id: extract_branch
-
       - name: Create code coverage badge
         uses: timkrase/phpunit-coverage-badge@v1.2.1
         with:
@@ -86,7 +82,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: ./output
-          publish_branch: ${{ steps.extract_branch.outputs.branch }}
+          publish_branch: repo-badges
           github_token: ${{ secrets.GITHUB_TOKEN }}
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
