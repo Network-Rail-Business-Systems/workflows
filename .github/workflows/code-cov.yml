@@ -78,11 +78,11 @@ jobs:
           coverage_badge_path: output/coverage.svg
           push_badge: false
 
-      - name: Git push to image-data branch
+      - name: Push code coverage badge
         uses: peaceiris/actions-gh-pages@v3
         with:
-          publish_dir: ./output
-          publish_branch: image-data
+          publish_dir: ./public
+          publish_branch: feature/code-coverage
           github_token: ${{ secrets.GITHUB_TOKEN }}
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
