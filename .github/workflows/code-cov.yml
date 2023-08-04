@@ -12,9 +12,6 @@ on:
       composer:
         default: true
         type: boolean
-      env:
-        default: true
-        type: boolean
       php:
         required: true
         type: string
@@ -41,10 +38,6 @@ jobs:
       - name: Install Composer...
         if: inputs.composer == true
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Create .env...
-        if: inputs.env == true
-        run: cp .env.example .env
 
       - name: Generate key...
         if: inputs.env == true
