@@ -48,10 +48,6 @@ jobs:
         if: inputs.composer == true
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Install NPM...
-        if: inputs.npm == true
-        run: npm install
-
       - name: Create .env...
         if: inputs.env == true
         run: cp .env.example .env
