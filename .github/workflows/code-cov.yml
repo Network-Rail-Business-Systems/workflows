@@ -39,10 +39,6 @@ jobs:
         if: inputs.composer == true
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Generate key...
-        if: inputs.env == true
-        run: php artisan key:generate
-
       - name: Run XDebug...
         if: inputs.xdebug == false
         run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
