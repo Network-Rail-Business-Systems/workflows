@@ -10,12 +10,12 @@ For more information, refer to the [GitHub Reusing Workflows](https://docs.githu
 
 ## Workflows available
 
-| Name       | Description                | Parameters                                        |
-|------------|----------------------------|---------------------------------------------------|
-| build-dev  | Create a development build | composer, npm, php, timeout, vite                 |
-| build-prod | Create a production build  | composer, npm, php, timeout, vite                 |
-| unit-tests | Run PHPUnit tests          | artisan, composer, env, npm, php, timeout, vite   |
-| code-cov   | Run Code Coverage          | xdebug, composer, php, timeout |
+| Name       | Description                | Parameters                                      |
+|------------|----------------------------|-------------------------------------------------|
+| build-dev  | Create a development build | composer, npm, php, timeout, vite               |
+| build-prod | Create a production build  | composer, npm, php, timeout, vite               |
+| unit-tests | Run PHPUnit tests          | artisan, composer, env, npm, php, timeout, vite |
+| code-cov   | Run Code Coverage          | xdebug, php, timeout |
 
 ## Adding and amending workflows to this repository
 
