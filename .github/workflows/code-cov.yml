@@ -1,4 +1,4 @@
-name: 'Run code coverage whenever a pull request is opened'
+name: 'Run code coverage whenever code is pushed'
 
 on:
   workflow_call:
