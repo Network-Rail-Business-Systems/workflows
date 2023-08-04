@@ -56,14 +56,6 @@ jobs:
         if: inputs.env == true
         run: php artisan key:generate
 
-      - name: Run Vite...
-        if: inputs.npm == true && inputs.vite == true
-        run: npm run build
-
-      - name: Run Laravel Mix...
-        if: inputs.npm == true && inputs.vite == false
-        run: npm run prod
-
       - name: Run XDebug...
         if: inputs.xdebug == false
         run: npm run coverage
