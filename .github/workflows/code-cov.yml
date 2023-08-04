@@ -52,7 +52,7 @@ jobs:
 
       - name: Run XDebug...
         if: inputs.xdebug == false
-        run: npm run coverage
+        run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
 
       - name: Create code coverage badge
         uses: timkrase/phpunit-coverage-badge@v1.2.1
