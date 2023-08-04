@@ -6,9 +6,6 @@ on:
       xdebug:
         default: false
         type: boolean
-      composer:
-        default: true
-        type: boolean
       php:
         required: true
         type: string
@@ -32,12 +29,14 @@ jobs:
         with:
           php-version: ${{ inputs.php }}
 
+      - name: Install XDebug...
+        if: inputs.xdebug == false
+        run: sudo apt-get install php8.2-xdebug
+
       - name: Install Composer...
-        if: inputs.composer == true
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Run XDebug...
-        if: inputs.xdebug == false
+      - name: Create code coverage report
         run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
 
       - name: Create code coverage badge
