@@ -3,9 +3,6 @@ name: 'Run code coverage whenever code is pushed'
 on:
   workflow_call:
     inputs:
-      xdebug:
-        default: false
-        type: boolean
       php:
         required: true
         type: string
@@ -29,10 +26,6 @@ jobs:
         with:
           php-version: ${{ inputs.php }}
           coverage: xdebug
-
-      - name: Install XDebug...
-        if: inputs.xdebug == false
-        run: sudo apt-get install php${{ inputs.php }}-xdebug
 
       - name: Install Composer...
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
