@@ -1,4 +1,5 @@
-name: 'Run code coverage whenever code is pushed'
+##OPTION 1.0 - REFERENCED IN WORKFLOW CALLABLE(CODE-COV) - ECR - FEATURE/CODE-COVERAGE
+name: 'Run code coverage whenever code is pushed(other option is pull request)'
 
 on:
   workflow_call:
