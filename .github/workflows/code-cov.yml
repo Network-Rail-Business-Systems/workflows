@@ -1,4 +1,6 @@
 ##OPTION 1.0 - REFERENCED IN WORKFLOW CALLABLE(CODE-COV) - ECR - FEATURE/CODE-COVERAGE
+##RECOMMENDATION - REFERENCED IN PRE-COMMIT/PRE-PUSH - ECR - FEATURE/CODE-COVERAGE
+
 name: 'Run code coverage whenever code is pushed(other option is pull request)'
 
 on:
