@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  coverage:
+  update-coverage:
     runs-on: ubuntu-latest
     timeout-minutes: ${{ inputs.timeout }}
     steps:
