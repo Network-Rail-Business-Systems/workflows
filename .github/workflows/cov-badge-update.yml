@@ -1,0 +1,34 @@
+##RECOMMENDATION - REFERENCED IN PRE-COMMIT/PRE-PUSH - ECR - FEATURE/CODE-COVERAGE
+name: 'Create a code coverage badge for main'
+
+on:
+  workflow_call:
+    inputs:
+      php:
+        required: true
+        type: string
+      timeout:
+        default: 5
+        type: number
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php }}
+
+      - name: Coverage percentage
+        uses: sergiy-decima/clover-coverage-action@1.0.0
+        if: always()
+        with:
+          filename: clover.xml
