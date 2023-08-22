@@ -30,8 +30,39 @@ jobs:
       - name: Install Composer...
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Update badge
-        run: sed -i "s/41/99/g" public/images/code-coverage.svg
+      - name: Create code coverage report
+        run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
+
+      name: Coverage percentage
+      uses: sergiy-decima/clover-coverage-action@1.0.0
+        id: percentage
+        if: always()
+        with:
+        filename: clover.xml >> $GITHUB_OUTPUT
+
+      name: test output
+       run: echo "${{steps.Coverage_percentage.output}}" ${{steps.Coverage_percentage.output}}
+
+      - name: Update badge percentage
+        run: sed -i "s/$current-coverage/$new-coverage/g" public/images/code-coverage.svg
+
+      - name: Update badge colour based on percentage
+        run: |
+        if ($new-coverage < 40) {
+              $new-color = '#e05d44'; #Red
+        } elseif($new-coverage < 60) {
+            $new-color = '#fe7d37';  #Orange
+        } elseif($new-coverage < 75) {
+            $new-color = '#dfb317';  #Yellow
+        } elseif($new-coverage < 90) {
+           $new-color = '#a4a61d';  #Yellow-Green
+        } elseif($new-coverage < 95) {
+            $new-color = '#97CA00';  #Green
+        } elseif ($new-coverage <= 100) {
+            $new-color = '#4c1';     #Bright Green
+        }
+
+        sed -i "s/$current-color/$new-color/g" public/images/code-coverage.svg
 
       - name: commit badge changes and push
         run: |
@@ -40,28 +71,3 @@ jobs:
           git add -A
           git commit -m "updated code coverage badge"
           git push
-
-        #sed -i
-        #if ($coverage < 40) {
-        #$color = '#e05d44';  // Red
-    #} elseif($coverage < 60) {
-     # $color = '#fe7d37';  // Orange
-   # } elseif($coverage < 75) {
-    #  $color = '#dfb317';  // Yellow
-   # } elseif($coverage < 90) {
-     # $color = '#a4a61d';  // Yellow-Green
-    #} elseif($coverage < 95) {
-    #  $color = '#97CA00';  // Green
-   # } elseif ($coverage <= 100) {
-     # $color = '#4c1';     // Bright Green
-   # }
-        #if number over a particular change colour
-
-#      - name: Create code coverage report
-#        run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
-#
-#      - name: Coverage percentage
-#        uses: sergiy-decima/clover-coverage-action@1.0.0
-#        if: always()
-#        with:
-#          filename: clover.xml
