@@ -40,4 +40,4 @@ jobs:
           filename: clover.xml
 
       - name: Update badge
-        run: sed -i "s/41/99/g" ${{ github.repository }}/public/images/code-coverage.svg
+        run: sed -i "s/41/99/g" ${{ github.head_ref }}/public/images/code-coverage.svg
