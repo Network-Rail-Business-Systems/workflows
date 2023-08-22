@@ -31,7 +31,27 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Update badge
-        run: sed -i "s/41/99/g" ${{ github.workspace}}/public/images/code-coverage.svg
+        run: |
+          sed -i "s/41/99/g" /public/images/code-coverage.svg
+          git add -A
+          git commit -m "updated code coverage badge"
+          git push
+
+        #sed -i
+        #if ($coverage < 40) {
+        #$color = '#e05d44';  // Red
+    #} elseif($coverage < 60) {
+     # $color = '#fe7d37';  // Orange
+   # } elseif($coverage < 75) {
+    #  $color = '#dfb317';  // Yellow
+   # } elseif($coverage < 90) {
+     # $color = '#a4a61d';  // Yellow-Green
+    #} elseif($coverage < 95) {
+    #  $color = '#97CA00';  // Green
+   # } elseif ($coverage <= 100) {
+     # $color = '#4c1';     // Bright Green
+   # }
+        #if number over a particular change colour
 
 #      - name: Create code coverage report
 #        run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
