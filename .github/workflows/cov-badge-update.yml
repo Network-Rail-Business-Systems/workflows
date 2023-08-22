@@ -34,40 +34,40 @@ jobs:
         run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
 
       name: Coverage percentage
-      uses: sergiy-decima/clover-coverage-action@1.0.0
-        id: percentage
+      id: percent
+      uses: sergiy-decima/clover-coverage-action@1.0.0 >> $GITHUB_OUTPUT
         if: always()
         with:
-        filename: clover.xml >> $GITHUB_OUTPUT
+        filename: clover.xml
 
-      name: test output
-       run: echo "${{steps.Coverage_percentage.output}}" ${{steps.Coverage_percentage.output}}
+      name: percent
+      run: echo ${{steps.percent.output}}
 
-      - name: Update badge percentage
-        run: sed -i "s/$current-coverage/$new-coverage/g" public/images/code-coverage.svg
-
-      - name: Update badge colour based on percentage
-        run: |
-        if ($new-coverage < 40) {
-              $new-color = '#e05d44'; #Red
-        } elseif($new-coverage < 60) {
-            $new-color = '#fe7d37';  #Orange
-        } elseif($new-coverage < 75) {
-            $new-color = '#dfb317';  #Yellow
-        } elseif($new-coverage < 90) {
-           $new-color = '#a4a61d';  #Yellow-Green
-        } elseif($new-coverage < 95) {
-            $new-color = '#97CA00';  #Green
-        } elseif ($new-coverage <= 100) {
-            $new-color = '#4c1';     #Bright Green
-        }
-
-        sed -i "s/$current-color/$new-color/g" public/images/code-coverage.svg
-
-      - name: commit badge changes and push
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add -A
-          git commit -m "updated code coverage badge"
-          git push
+#      - name: Update badge percentage
+#        run: sed -i "s/$current-coverage/$new-coverage/g" public/images/code-coverage.svg
+#
+#      - name: Update badge colour based on percentage
+#        run: |
+#        if ($new-coverage < 40) {
+#              $new-color = '#e05d44'; #Red
+#        } elseif($new-coverage < 60) {
+#            $new-color = '#fe7d37';  #Orange
+#        } elseif($new-coverage < 75) {
+#            $new-color = '#dfb317';  #Yellow
+#        } elseif($new-coverage < 90) {
+#           $new-color = '#a4a61d';  #Yellow-Green
+#        } elseif($new-coverage < 95) {
+#            $new-color = '#97CA00';  #Green
+#        } elseif ($new-coverage <= 100) {
+#            $new-color = '#4c1';     #Bright Green
+#        }
+#
+#        sed -i "s/$current-color/$new-color/g" public/images/code-coverage.svg
+#
+#      - name: commit badge changes and push
+#        run: |
+#          git config user.name github-actions
+#          git config user.email github-actions@github.com
+#          git add -A
+#          git commit -m "updated code coverage badge"
+#          git push
