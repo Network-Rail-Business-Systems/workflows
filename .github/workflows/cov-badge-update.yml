@@ -31,7 +31,7 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Update badge
-        run: sed -i "s/41/99/g" sed -i "s/41/99/g" ${{ github.workspace}}/public/images/code-coverage.svg/public/images/code-coverage.svg
+        run: sed -i "s/41/99/g" ${{ github.workspace}}/public/images/code-coverage.svg/public/images/code-coverage.svg
 
 #      - name: Create code coverage report
 #        run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
