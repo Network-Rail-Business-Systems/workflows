@@ -39,9 +39,5 @@ jobs:
         with:
           filename: clover.xml
 
-##OUTPUTS CORRECT PERCENTAGE - FIGURE OUT HOW TO GET THE VALUE OUT AND AMEND USING BASH - EXAMPLE GIVEN:
-
-#  echo "Enabling PHP-FPM Handler..."
-#  OLD="#SetHandler \"proxy:fcgi:\/\/127\.0\.0\.1\:90[0-9][0-9]\""
-#  NEW="SetHandler \"proxy:fcgi:\/\/127\.0\.0\.1\:90{{ $phpver }}\""
-#  sed -i "s/$OLD/$NEW/g" /app/{{ $system }}/builds/{{ $build }}/public/.htaccess
+      - name: Update badge
+        run: sed -i "s/41/99/g" public/images/code-coverage.svg
