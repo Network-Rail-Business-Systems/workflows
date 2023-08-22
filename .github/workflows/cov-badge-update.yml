@@ -31,8 +31,12 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Update badge
-        run: |
-          sed -i "s/41/99/g" public/images/code-coverage.svg
+        run: sed -i "s/41/99/g" public/images/code-coverage.svg
+
+      - name: commit badge changes and push
+        run:
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add -A
           git commit -m "updated code coverage badge"
           git push
