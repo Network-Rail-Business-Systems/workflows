@@ -34,7 +34,7 @@ jobs:
         run: sed -i "s/41/99/g" public/images/code-coverage.svg
 
       - name: commit badge changes and push
-        run:
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add -A
