@@ -32,7 +32,7 @@ jobs:
 
       - name: Update badge
         run: |
-          sed -i "s/41/99/g" /public/images/code-coverage.svg
+          sed -i "s/41/99/g" public/images/code-coverage.svg
           git add -A
           git commit -m "updated code coverage badge"
           git push
