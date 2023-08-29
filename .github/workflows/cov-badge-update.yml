@@ -33,15 +33,9 @@ jobs:
       - name: Create code coverage report
         run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
 
-#      - name: Summary Coverage Report
-#        uses: sergiy-decima/clover-coverage-action@1.0.0
-#        if: always()
-#        with:
-#          filename: clover.xml
-#
-#      - name: Get new percentage
-#        run: new_percent= GET OUTPUT FROM ABOVE OR MAKE YOUR OWN
-#
+      - name: Get new percentage
+        run: new_percent=vendor/bin/coverage-check clover.xml 75 --only-percentage
+
       - name: Get current percentage
         run: current_percent=$(sed -n 18p public/images/code-coverage.svg|grep -i -o -E [[:digit:]]+%)
 
@@ -49,26 +43,26 @@ jobs:
         run: current_color=$(current_color=$(sed -n 12p public/images/code-coverage.svg|grep -i -o "#.*"|sed 's/".*//')
 
       - name: Update badge percentage
-        run: sed -i "s/${current_percent%?}/$new_percent/g" public/images/code-coverage.svg
+        run: sed -i "s/${current_percent%?}/${new_percent%.*}/g" public/images/code-coverage.svg
 
       - name: Update badge color
         run: |
-          if [ $new_percent -lt 40 ]
+          if [ ${new_percent%.*} -lt 40 ]
           then
             sed -i "s/$current_color/#e05d44/g" public/images/code-coverage.svg
-          elif [ $new_percent -lt 60 ]
+          elif [ ${new_percent%.*} -lt 60 ]
           then
             sed -i "s/$current_color/#fe7d37/g" public/images/code-coverage.svg
-          elif [ $new_percent -lt 75 ]
+          elif [ ${new_percent%.*} -lt 75 ]
           then
             sed -i "s/$current_color/#dfb317/g" public/images/code-coverage.svg
-          elif [ $new_percent -lt 90 ]
+          elif [ ${new_percent%.*} -lt 90 ]
           then
             sed -i "s/$current_color/#a4a61d/g" public/images/code-coverage.svg
-          elif [ $new_percent -lt 95 ]
+          elif [ ${new_percent%.*} -lt 95 ]
           then
             sed -i "s/$current_color/#97CA00/g" public/images/code-coverage.svg
-          elif [ $new_percent -le 100 ]
+          elif [ ${new_percent%.*} -le 100 ]
           then
             sed -i "s/$current_color/#4c1/g" public/images/code-coverage.svg
           else
