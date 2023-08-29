@@ -84,7 +84,7 @@ jobs:
           
           export changes=$(git diff --name-only)
           
-          if [ "$changes" !== "public/images/code-coverage.svg" ]
+          if [ "$changes" != "public/images/code-coverage.svg" ]
           then
           echo "Nothing to push"
           exit 0
