@@ -35,11 +35,22 @@ jobs:
       - name: Create code coverage report
         run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
 
+      - name: check for coverage badge
+        if: ! -f "public/images/code-coverage.svg"
+        run: |
+          vendor/bin/php-coverage-badger clover.xml public/images/code-coverage.svg
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add public/images/code-coverage.svg
+          git commit -m "updated code coverage badge"
+          git push
+          echo "Code coverage badge: pushed"
+
       - name: Update coverage badge
         run: |
           set -e
           
-          export new_percent=$(vendor/bin/coverage-check ./clover.xml 75 --only-percentage)
+          export new_percent=$(vendor/bin/coverage-check clover.xml 75 --only-percentage)
           
           export current_percent=$(sed -n 18p public/images/code-coverage.svg|grep -i -o -E [[:digit:]]+%)
           
@@ -76,7 +87,6 @@ jobs:
           fi
           
           echo "Code coverage badge: updated"
-
 
       - name: commit and push badge
         run: |
