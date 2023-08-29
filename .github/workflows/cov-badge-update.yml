@@ -79,14 +79,14 @@ jobs:
         run: |
           set -e
           
-          if [[ "${{ github.event.before }}" == "${{ github.event.after }}" ]]
+          if [[ ${{ github.event.before }} != ${{ github.event.after }} ]]
           then
-          echo "Nothing to push"
-          exit 0
-          else
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add public/images/code-coverage.svg
           git commit -m "updated code coverage badge"
           git push
+          else
+          echo "Nothing to push"
+          exit 0
           fi
