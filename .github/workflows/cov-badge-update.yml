@@ -84,15 +84,15 @@ jobs:
           
           export changes=$(git diff --name-only)
           
-          if [ "$changes" == "public/images/code-coverage.svg" ]
+          if [ "$changes" !== "public/images/code-coverage.svg" ]
           then
+          echo "Nothing to push"
+          exit 0
+          else
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add public/images/code-coverage.svg
           git commit -m "updated code coverage badge"
           git push
           echo "Code coverage badge: pushed"
-          else
-          echo "Nothing to push"
-          exit 0
           fi
