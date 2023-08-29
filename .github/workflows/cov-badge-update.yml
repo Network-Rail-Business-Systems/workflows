@@ -34,7 +34,7 @@ jobs:
         run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover clover.xml
 
       - name: Get new percentage
-        run: new_percent=vendor/bin/coverage-check clover.xml 75 --only-percentage
+        run: vendor/bin/coverage-check ./clover.xml 75 --only-percentage
 
       - name: Get current percentage
         run: current_percent=$(sed -n 18p public/images/code-coverage.svg|grep -i -o -E [[:digit:]]+%)
