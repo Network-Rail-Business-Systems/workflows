@@ -43,7 +43,7 @@ jobs:
         run: export current_color=$(sed -n 12p public/images/code-coverage.svg|grep -i -o "#.*"|sed 's/".*//')
 
       - name: Update badge percentage
-        run: sed -i -r "s/${current_percent%?}/${new_percent%.*}/g" public/images/code-coverage.svg
+        run: sed -i "s/${current_percent%?}/${new_percent%.*}/g" public/images/code-coverage.svg
 
       - name: Update badge color
         run: |
