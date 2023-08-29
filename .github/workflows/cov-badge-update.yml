@@ -74,6 +74,9 @@ jobs:
           else
             sed -i -e "s/$current_color/#0a0a0a/g" public/images/code-coverage.svg
           fi
+          
+          echo "Code coverage badge: updated"
+
 
       - name: commit and push badge
         run: |
@@ -86,6 +89,7 @@ jobs:
           git add public/images/code-coverage.svg
           git commit -m "updated code coverage badge"
           git push
+          echo "Code coverage badge: pushed"
           else
           echo "Nothing to push"
           exit 0
