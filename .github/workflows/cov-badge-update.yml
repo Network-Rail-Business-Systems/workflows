@@ -82,7 +82,9 @@ jobs:
         run: |
           set -e
           
-          if [ ${{ github.event.before }} !== ${{ github.event.after }} ]
+          export changes=$(get diff --name-only)
+          
+          if [ $changes = "public/images/code-coverage.svg" ]
           then
           git config user.name github-actions
           git config user.email github-actions@github.com
