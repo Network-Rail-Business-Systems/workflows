@@ -79,7 +79,7 @@ jobs:
         run: |
           set -e
           
-          if ${{ github.event.before }} == ${{ github.event.after }}
+          if [[ ${{ github.event.before }} =~ ${{ github.event.after }} ]]
           then
           echo "Nothing to push"
           exit 0
