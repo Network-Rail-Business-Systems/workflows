@@ -38,19 +38,23 @@ jobs:
       - name: check for coverage badge
         run: |
           set -e
-          if [ ! -f "public/images/code-coverage.svg" ]
+          if [ -f "public/images/code-coverage.svg" ]
           then
+          exit 0
+          else
           vendor/bin/php-coverage-badger clover.xml public/images/code-coverage.svg
           echo "Code coverage badge: created"
+          sed -i '2 i \ \' readme.md
+          sed -i '3 i ![Coverage](./public/images/code-coverage.svg)' readme.md
+          echo "Readme: updated"
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add public/images/code-coverage.svg
-          git commit -m "updated code coverage badge"
+          git add readme.md
+          git commit -m "Created code coverage badge, readme updated"
           git push
-          echo "Code coverage badge: pushed"
+          echo "Code coverage badge and readme: pushed"
           fi
-          exit 0
-          else 
 
       - name: Update coverage badge
         run: |
