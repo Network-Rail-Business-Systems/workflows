@@ -52,11 +52,11 @@ jobs:
         run: npm run prod
 
       - name: Package build...
-        run: zip -rq9 ${{ github.ref_name }}.zip . -x '.git/*' -x 'node_modules/*'
+        run: zip -rq9 ${{ github.event.release.tag_name }}.zip . -x '.git/*' -x 'node_modules/*'
 
       - name: Save build artifact...
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.ref_name }}
-          path: ${{ github.ref_name }}.zip
+          name: ${{ github.event.release.tag_name }}
+          path: ${{ github.event.release.tag_name }}.zip
           retention-days: 7
