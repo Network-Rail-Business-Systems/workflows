@@ -80,8 +80,8 @@ jobs:
           
             if [ ${{ inputs.artisan }} = true ]
             then
-              php artisan test --parallel --testsuite $suite
+              php artisan test --parallel --no-coverage --testsuite $suite
             else
-              php ./vendor/bin/phpunit --testsuite $suite
+              php ./vendor/bin/phpunit --no-coverage --testsuite $suite
             fi
           done
