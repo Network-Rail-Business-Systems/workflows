@@ -55,7 +55,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Run Vite...
-        if: inputs.npm == true && inputs.vite == true
+        if: inputs.npm == true
         run: npm run build
 
       - name: Run unit tests...
