@@ -60,21 +60,9 @@ jobs:
 
       - name: Run unit tests...
         run: |
-          suites=( $(php ./vendor/bin/phpunit --list-suites | grep -) )
-
-          for suite in ${suites[@]}
-          do
-            if [ $suite = "-" ]
-            then
-              continue
-            fi
-          
-            echo "Running PHPUnit for the $suite test suite..."
-          
             if [ ${{ inputs.artisan }} = true ]
             then
-              php artisan test --parallel --no-coverage --testsuite $suite
+              php artisan test --parallel --no-coverage
             else
-              php ./vendor/bin/phpunit --no-coverage --testsuite $suite
+              php ./vendor/bin/phpunit --no-coverage
             fi
-          done
